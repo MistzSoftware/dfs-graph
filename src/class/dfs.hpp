@@ -7,11 +7,11 @@ using namespace std;
 #define MAX_SIZE 5
 
 /**
- * @class Stack
- * @brief A class to represent a stack data structure for graph vertices.
+ * @class DFS
+ * @brief A class to represent Depth-First Search (DFS) for graph traversal.
  * 
- * This class provides basic stack operations such as push, pop, peek, and 
- * checking if the stack is empty. It is used to manage vertices in a graph.
+ * This class provides methods to add vertices and edges, and perform DFS 
+ * traversal on the graph. It uses a stack to manage the traversal process.
  */
 class DFS {
     private:
@@ -33,7 +33,7 @@ class DFS {
         
 
         /**
-         * @brief Constructor to initialize the stack with a given size.
+         * @brief Constructor to initialize the DFS class.
          */
         DFS();
 

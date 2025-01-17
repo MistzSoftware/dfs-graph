@@ -1,7 +1,12 @@
 #include "bfs.hpp"
 
 BFS::BFS(){
-    
+    //adjacency matrix init
+    for(int i = 0; i < MAX_SIZE; i++){
+        for(int j = 0; j < MAX_SIZE; j++){
+            adjacencyMatrix[i][j] = 0;
+        }
+    }
 }
 
 void BFS::enqueue(int item){
@@ -11,7 +16,7 @@ void BFS::enqueue(int item){
 
 int BFS::dequeue(){
     --queueSize;
-    return graphQueue[++front];
+    return graphQueue[front++];
 }
 
 bool BFS::isQueueEmpty(){
@@ -32,18 +37,27 @@ void BFS::addEdge(int orig, int dest){
 
 void BFS::breadthFirstSearch(){
     cout << "BFS:" << endl;
-    cout << vertices[0]->label << endl;
     vertices[0]->visited = true;
     enqueue(0);
 
     while(!isQueueEmpty()){
-        int vertexIdx = dequeue();
-        int unvisitedIdx;
+        int currentVertex = dequeue();
+        cout << vertices[currentVertex]->label << endl;
 
-        // while((unvisitedIdx = getAdjUnvisitedVertex(vertexIdx)) != -1){
-        //     vertices[unvisitedIdx]->visited = true;
-        //     cout << vertices[unvisitedIdx]->label << endl;
-        //     enqueue(unvisitedIdx);
-        // }
+        int adjVertex = getAdjUnvisitedVertex(currentVertex);
+        while(adjVertex != -1){
+            enqueue(adjVertex);
+            vertices[adjVertex]->visited = true;
+            adjVertex = getAdjUnvisitedVertex(currentVertex);
+        }
     }
+}
+
+int BFS::getAdjUnvisitedVertex(int vertexindex){
+    for(int i = 0; i < vertexCounter; i++){
+        if(adjacencyMatrix[vertexindex][i] == 1 && vertices[i]->visited == false){
+            return i;
+        }
+    }
+    return -1;
 }
